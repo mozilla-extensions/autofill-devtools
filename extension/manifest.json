@@ -1,0 +1,62 @@
+{
+  "manifest_version": 3,
+  "name": "autofill-devtools",
+  "version": "1.0.0",
+  "description": "A set of tools for interacting with the Firefox Autofill Module",
+  "homepage_url": "https://github.com/mozilla-extensions/autofill-devtools",
+
+  "permissions": [
+    "downloads",
+    "mozillaAddons",
+    "scripting",
+    "tabs",
+    "webNavigation"
+  ],
+
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "autofill-devtools@mozilla.com",
+      "strict_min_version": "135.0"
+    }
+  },
+
+   "host_permissions": [
+     "*://*/*"
+   ],
+
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "libs/freeze-dry.es.js",
+        "libs/jszip.js",
+        "data/test-addresses.json",
+        "data/test-credit-cards.json",
+        "data/gen-test.py"
+      ],
+      "matches": ["<all_urls>"]
+    }
+  ],
+
+  "devtools_page": "content/devtools-opener.html",
+
+  "icons": {
+      "48": "content/icons/icon.svg",
+      "96": "content/icons/icon.svg"
+  },
+
+  "background": {
+    "scripts": [ "background.js" ],
+    "type": "module"
+  },
+
+  "experiment_apis": {
+    "autofill": {
+      "schema": "experiments/schema.json",
+      "parent": {
+        "scopes": ["addon_parent"],
+        "paths": [["experiments"]],
+        "script": "experiments/api.js"
+      }
+    }
+  }
+}

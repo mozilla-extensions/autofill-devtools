@@ -1,0 +1,26 @@
+[
+    {
+        "cc-number": "378282246310005",
+        "cc-name": "John Doe",
+        "cc-exp-month": 1,
+        "cc-exp-year": 2022
+    },
+    {
+        "cc-number": "4111111111111111",
+        "cc-name": "Jane Smith",
+        "cc-exp-month": 12,
+        "cc-exp-year": 2029
+    },
+    {
+        "cc-number": "5555555555554444",
+        "cc-name": "Alice Johnson",
+        "cc-exp-month": 1,
+        "cc-exp-year": 2037
+    },
+    {
+        "cc-number": "6011111111111117",
+        "cc-name": "Bob Brown",
+        "cc-exp-month": 9,
+        "cc-exp-year": 2027
+    }
+]

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Security-Policy" content="default-src chrome:; object-src 'none'" />
+    <link rel="stylesheet" type="text/css" href="style/autofill.css">
+    <script src="autofill-inspector.js"></script>
+    <script src="libs/html2canvas.min.js"></script>
+  </head>
+  <body class="theme-body">
+    <div class="autofill-panel">
+      <div id="field" class="devtools-toolbar" role="toolbar">
+        <button id="autofill-inspect-start-button">Click to Inspect</button>
+        <span class="devtools-separator"></span>
+        <label class="devtools-checkbox-label devtools-cache-checkbox">
+          <input id="autofill-show-invisible-button" type="checkbox" class="devtools-checkbox"/>
+          Show Invisible
+        </label>
+        <span class="devtools-separator"></span>
+        <label class="devtools-checkbox-label devtools-cache-checkbox">
+          <input id="autofill-show-unknown-button" type="checkbox" class="devtools-checkbox"/>
+          Show Unknown
+        </label>
+        <span class="devtools-separator"></span>
+        <button id="autofill-inspect-element-button" title="Inspect Selected Element" class="devtools-button autofill-inspect-button"></button>
+        <button id="autofill-edit-field-button" title="Edit A Field" class="devtools-button autofill-edit-field-button"></button>
+        <span class="devtools-separator"></span>
+        <span class="devtools-separator"></span>
+        <button id="autofill-screenshot-button" title="Screenshot form" class="devtools-button autofill-screenshot-button"></button>
+        <span class="devtools-separator"></span>
+        <button id="autofill-download-button" title="Download the Web Page" class="devtools-button autofill-download-button"></button>
+        <span class="devtools-separator"></span>
+        <button id="autofill-generate-test-button" title="Generate A Testcase" class="devtools-button autofill-generate-test-button"></button>
+        <span class="devtools-separator"></span>
+        <label class="devtools-checkbox-label devtools-cache-checkbox">
+          <input id="autofill-add-address-button" type="checkbox" class="devtools-checkbox"/>
+          Show Test Address
+        </label>
+        <span class="devtools-separator"></span>
+        <label class="devtools-checkbox-label devtools-cache-checkbox">
+          <input id="autofill-add-credit-card-button" type="checkbox" class="devtools-checkbox"/>
+          Show Test Credit Card
+        </label>
+      </div>
+      <div class="field-list-container">
+        <div class="field-list-scroll">
+          <table class="field-list-table">
+            <thead class="field-list-headers-group">
+              <tr id="form-analysis-head-row" class="field-list-headers"></tr>
+            </thead>
+            <tbody id="form-analysis-table-body">
+              <!-- data is generated in javascript -->
+            </tbody>
+          </table>
+        </div>
+        <div class="devtools-toolbar devtools-toolbar-bottom">
+          <div class="status-bar-label autofill-progress-status">Status</div>
+        </div>
+      </div>
+    </div>
+
+    <template id="menu-template">
+      <div class="tooltip-container tooltip-bottom" type="doorhanger">
+        <div class="tooltip-panel">
+          <div role="menu" class="checkbox-container menu-standard-padding" id="menu-item-list"></div>
+        </div>
+        <div class="tooltip-arrow"></div>
+      </div>
+    </template>
+
+    <template id="menu-item-template">
+      <li class="menuitem" role="presentation">
+        <button class="command menu-item" role="menuitem">
+          <span class="label"></span>
+        </button>
+      </li>
+    </template>
+  </body>
+</html>

@@ -1,0 +1,69 @@
+[
+  {
+    "namespace": "experiments.autofill",
+    "functions": [
+      {
+        "name": "captureTab",
+        "type": "function",
+        "description": "Screenshot the specified tab",
+        "async": true,
+        "parameters": [
+          {
+            "type": "integer",
+            "name": "tabId"
+          },
+          {
+            "type": "integer",
+            "name": "x"
+          },
+          {
+            "type": "integer",
+            "name": "y"
+          },
+          {
+            "type": "integer",
+            "name": "width"
+          },
+          {
+            "type": "integer",
+            "name": "height"
+          }
+        ]
+      },
+      {
+        "name": "inspect",
+        "type": "function",
+        "description": "Inspect autofillable elements",
+        "async": true,
+        "parameters": [
+          {
+            "type": "integer",
+            "name": "tabId"
+          },
+          {
+            "type": "array",
+            "name": "changes",
+            "items": { "type": "any" }
+          }
+        ]
+      },
+      {
+        "name": "setTemporaryRecordsForTab",
+        "type": "function",
+        "description": "set autofill testing record for the given tab",
+        "async": true,
+        "parameters": [
+          {
+            "type": "integer",
+            "name": "tabId"
+          },
+          {
+            "type": "array",
+            "name": "records",
+            "items": { "type": "any" }
+          }
+        ]
+      }
+    ]
+  }
+]

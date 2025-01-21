@@ -1,0 +1,41 @@
+[
+  {
+    "given-name": "Alan",
+    "additional-name": "R.",
+    "family-name": "Turing",
+    "organization": "World Wide Web Consortium",
+    "street-address": "32 Vassar Street\nMIT Room 32-G524",
+    "address-level2": "Cambridge",
+    "address-level1": "MA",
+    "postal-code": "02139",
+    "country": "US",
+    "tel": "+16172535702",
+    "email": "alan@gmail.com"
+  },
+  {
+    "given-name": "Donald",
+    "additional-name": "R.",
+    "family-name": "Hebb",
+    "organization": "Mozilla",
+    "street-address": "163 W Hastings\nSuite 209",
+    "address-level2": "Vancouver",
+    "address-level1": "BC",
+    "postal-code": "V6B 1H5",
+    "country": "CA",
+    "tel": "+17787851540",
+    "email": "hebb@w3.org"
+  },
+  {
+    "given-name": "Konrad",
+    "additional-name": "R.",
+    "family-name": "Zuse",
+    "organization": "Mozilla",
+    "street-address":
+      "Geb\u00E4ude 3, 4. Obergeschoss\nSchlesische Stra\u00DFe 27",
+    "address-level2": "Berlin",
+    "postal-code": "10997",
+    "country": "DE",
+    "tel": "+4930983333000",
+    "email": "konrad@example.de"
+  }
+]

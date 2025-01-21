@@ -1,0 +1,292 @@
+/* This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
+
+@import url("/content/style/common.css");
+@import url("/content/style/toolbars.css");
+@import url("/content/style/tooltips.css");
+@import url("/content/style/variables.css");
+
+
+:root {
+  /* from netmonitor/src/assets/styles/variables.css */
+  --primary-toolbar-height: 29px;
+  --table-zebra-background: light-dark(rgba(247, 247, 247, 0.8), rgba(255,255,255,0.05));
+  --table-selection-background-hover: light-dark(rgba(209, 232, 255, 0.8), rgba(53, 59, 72, 1));
+
+  --item-invisible-color: light-dark(var(--red-70), var(--red-20));
+  --item-unknown-color: light-dark(var(--red-70), var(--red-20));
+}
+
+html,
+body,
+.autofill-panel {
+  flex: initial;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+}
+
+.devtools-toolbar {
+  display: flex;
+  align-items: center;
+
+  /* Copy from light-theme.css */
+  color: var(--theme-body-color);
+  background-color: var(--theme-toolbar-background);
+  border-color: var(--theme-splitter-color);
+}
+
+.autofill-panel > .devtools-toolbar {
+  /* @TODO: Remove this in bug 1535956 */
+  min-height: var(--primary-toolbar-height);
+}
+
+.theme-body {
+  background: var(--theme-body-background);
+  margin: 0;
+}
+
+.autofill-panel {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+}
+
+/* Field list table */
+
+.field-list-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  flex: 1;
+  overflow: hidden;
+  color: var(--theme-body-color);
+}
+
+.field-list-scroll {
+  overflow-x: hidden;
+  overflow-y: auto;
+  width: 100% !important;
+  flex: 2;
+}
+
+.field-list-scroll table {
+  /* Disable overflow-anchor for only child in the scrollable element */
+  overflow-anchor: none;
+}
+
+.field-list-table {
+  border-spacing: 0;
+  width: 100%;
+}
+
+.field-list-table {
+  /* Reset default browser style of <table> */
+  border-spacing: 0;
+  width: 100%;
+  /* The layout must be fixed for resizing of columns to work.
+  The layout is based on the first row.
+  Set the width of those cells, and the rest of the table follows. */
+  /*table-layout: fixed;*/
+  table-layout: auto;
+}
+
+
+.field-list-table {
+  /* Clip column resizers when they are higher than the table. */
+  overflow: hidden;
+}
+
+/* Field list column */
+
+.field-list-column {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  vertical-align: middle;
+  /* Reset default browser style of <td> */
+  padding: 0;
+  /* Prevent text selection because it's often invisible (blue on blue),
+   * it conflicts easily with existing click and double-click actions,
+   * and we already have several Copy and Export options. */
+  user-select: none;
+}
+
+.field-list-column {
+  position: relative;
+}
+
+.field-list-column > * {
+  display: inline-block;
+}
+
+.field-list-column {
+  border-inline-start: 1px solid var(--grey-25);
+  border-bottom: 1px solid var(--theme-splitter-color);
+  font: message-box;
+  height: var(--theme-toolbar-height);
+}
+
+/* Field list headers */
+
+.field-list-headers-group {
+  position: sticky;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1;
+}
+
+.field-list-headers {
+  padding: 0;
+  color: var(--theme-body-color);
+  background-color: var(--theme-toolbar-background);
+}
+
+.field-list-headers th {
+  height: calc(var(--theme-toolbar-height) + 1px);
+  border-bottom: 1px solid var(--theme-splitter-color);
+}
+
+.field-list-headers th {
+  /* Allow column-resizers to be visible beyond the headers. */
+  /*! overflow: visible; */
+}
+
+.field-list-headers th:not(:first-child) {
+  border-inline-start: 1px solid var(--theme-splitter-color);
+}
+
+/* Field List Item */
+
+.field-list-item {
+  height: 24px;
+  line-height: 24px;
+}
+
+.field-list-item.autofill-section-even {
+  background-color: var(--table-zebra-background);
+}
+
+/*
+ * Showing invisible or  requests in red should always have priority
+ * except when the request is selected.
+ */
+.field-list-item:not(.selected):not([rowspan]).invisible {
+  color: var(--item-invisible-color) !important;
+}
+
+.field-list-item:not(.selected):not([rowspan]).unknown {
+  color: var(--item-unknown-color) !important;
+}
+
+.field-list-item:not(.selected):not(.autofill-hide-highlight):hover td:not([rowspan]) {
+  background-color: var(--table-selection-background-hover);
+}
+
+.field-list-item td#col-form:hover,
+.field-list-item td#col-section:hover,
+.field-list-item td#col-frame:hover {
+  background-color: var(--table-selection-background-hover);
+}
+
+/* Do not show selected highlight form "Root", "Section", and "Frame" column */
+.field-list-item.selected td:not(#col-form):not(#col-section):not(#col-frame) {
+  background-color: var(--theme-selection-background);
+  color: var(--theme-selection-color);
+  /* Rows have tabindex=0 and get a default outline when clicked, but we already
+   * have a visible selection style so hiding the outline should be okay. */
+  outline: none;
+}
+
+/* Use icon to present form & section */
+.field-list-item > td#col-form,
+.field-list-item > td#col-section {
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 16px;
+}
+
+.field-list-item > td#col-form {
+  background-image: url(/content/icons/formfill-anchor.svg);
+}
+
+.field-list-item > .field-address-icon {
+  background-image: url(/content/icons/icon-capture-address-fields.svg);
+}
+
+.field-list-item > .field-credit-card-icon {
+  background-image: url(/content/icons/icon-credit-card-generic.svg);
+}
+
+.field-list-item .field-list-column {
+  padding-inline-start: 5px;
+  /* Column text should not touch the next column's border.
+     We could use a 5px space to be symmetrical, but we're using
+     text-overflow:ellipsis which makes that padding look wider in most cases,
+     and a smaller padding saves space for content. */
+  padding-inline-end: 4px;
+}
+
+/* autofill inspector toolbar */
+.devtools-button.autofill-inspect-button::before {
+  background-image: url("/content/icons/tool-inspector.svg");
+}
+
+.devtools-button.autofill-screenshot-button::before {
+  background-image: url("/content/icons/command-screenshot.svg");
+  background-size: 16px 16px;
+  background-repeat: no-repeat;
+}
+
+.devtools-button.autofill-download-button::before {
+  background-image: url("/content/icons/downloads.svg");
+}
+
+.devtools-button.autofill-edit-field-button::before {
+  background-image: url("/content/icons/edit-outline.svg");
+}
+
+.devtools-button.autofill-generate-test-button::before {
+  background-image: url("/content/icons/policies-active.svg");
+}
+
+/* From netmonitor/src/assets/styles/Toolbar.css */
+.devtools-toolbar .devtools-checkbox {
+  position: relative;
+  vertical-align: middle;
+  bottom: 1px;
+}
+
+#devtools-cache-checkbox {
+  vertical-align: unset;
+  bottom: -1px;
+}
+
+.devtools-toolbar .devtools-checkbox-label {
+  margin-inline-start: 2px;
+  margin-inline-end: 2px;
+  white-space: nowrap;
+}
+
+.devtools-toolbar .devtools-checkbox-label.devtools-cache-checkbox {
+  margin-inline-end: 7px;
+}
+
+/* From netmonitor/src/assets/styles/StatusBar.css */
+.status-bar-label {
+  display: inline-flex;
+  margin-inline-end: 10px;
+  /* Status bar has just one line so, don't wrap labels */
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+/* select */
+.field-list-item td.changed,
+.field-list-item td select.changed {
+  border: 2px solid red;
+}
