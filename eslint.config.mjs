@@ -43,7 +43,7 @@ export default [
     },
   },
   {
-    files: ["extension/content/*.js"],
+    files: ["extension/content/*.js", "extension/content/*.mjs"],
     languageOptions: {
       globals: {
         ...globals.browser,

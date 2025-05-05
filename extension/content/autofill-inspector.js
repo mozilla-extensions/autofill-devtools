@@ -136,6 +136,14 @@ class AutofillInspector {
   #originFieldNameByInspectId = new Map();
   #hasEverEdited = false;
 
+  #settings = {
+    // Setting to control whether we scroll the view to the hovered field.
+    scrollHover: false,
+
+    // Setting to control whether we include iframe when downloading the web page.
+    includeIframe: true,
+  };
+
   /**
    * Array contains the list of all inspected elements. This value
    * is set after calling `inspect` experiment API.
@@ -164,6 +172,17 @@ class AutofillInspector {
     ["autofill-add-credit-card-button", () => this.onAddOrRemoveTestRecord()],
   ];
 
+  #menuItemClickHandlers = [
+    [
+      "menuitem-scroll-hover",
+      (event) => this.onSelectScrollWhenHover(event.target),
+    ],
+    [
+      "menuitem-download-iframe",
+      (event) => this.onSelectIncludeIframeWhenDownload(event.target),
+    ],
+  ];
+
   /**
    * Array of <th> configuration of the header of inspect result table.
    */
@@ -189,16 +208,19 @@ class AutofillInspector {
 
   init() {
     // Helper to attach event listeners
-    const addEventListeners = (handlers, eventType) => {
+    const addEventListeners = (root, handlers, eventType) => {
       for (const [id, handler] of handlers) {
-        const element = document.getElementById(id);
-        element.addEventListener(eventType, (event) => handler(event));
+        const element = root.getElementById(id);
+        element?.addEventListener(eventType, (event) => handler(event));
       }
     };
 
     // Setup toolbar button and checkbox change handlers
-    addEventListeners(this.#buttonClickHandlers, "click");
-    addEventListeners(this.#checkboxChangeHandlers, "change");
+    addEventListeners(document, this.#buttonClickHandlers, "click");
+    addEventListeners(document, this.#checkboxChangeHandlers, "change");
+
+    const setting = document.getElementById("autofill-setting-button");
+    addEventListeners(setting.shadowRoot, this.#menuItemClickHandlers, "click");
 
     // Setup inspect result table
     const headerRow = document.getElementById("form-analysis-head-row");
@@ -213,6 +235,17 @@ class AutofillInspector {
         return th;
       }),
     );
+
+    this.initSettingMenuItems();
+  }
+
+  initSettingMenuItems() {
+    const setting = document.getElementById("autofill-setting-button");
+
+    let element = setting.shadowRoot.getElementById("menuitem-scroll-hover");
+    this.onSelectScrollWhenHover(element, true);
+    element = setting.shadowRoot.getElementById("menuitem-download-iframe");
+    this.onSelectIncludeIframeWhenDownload(element, true);
   }
 
   /**
@@ -299,7 +332,10 @@ class AutofillInspector {
     this.#updateProgress("downloading page");
     await this.waitForInspect();
 
-    sendMessage("download-page", { fieldDetails: this.#inspectedFieldDetails });
+    sendMessage("download-page", {
+      fieldDetails: this.#inspectedFieldDetails,
+      includeIframe: this.#settings.includeIframe,
+    });
   }
 
   async onGenerateReport() {
@@ -310,6 +346,7 @@ class AutofillInspector {
     sendMessage("generate-report", {
       panelDataUrl,
       fieldDetails: this.#inspectedFieldDetails,
+      includeIframe: this.#settings.includeIframe,
     });
   }
 
@@ -366,6 +403,28 @@ class AutofillInspector {
     event.target.classList.toggle("editing");
   }
 
+  onSelectScrollWhenHover(target, init = false) {
+    if (!init) {
+      this.#settings.scrollHover = !this.#settings.scrollHover;
+    }
+    if (this.#settings.scrollHover) {
+      target.classList.add("menuitem-selected");
+    } else {
+      target.classList.remove("menuitem-selected");
+    }
+  }
+
+  onSelectIncludeIframeWhenDownload(target, init = false) {
+    if (!init) {
+      this.#settings.includeIframe = !this.#settings.includeIframe;
+    }
+    if (this.#settings.includeIframe) {
+      target.classList.add("menuitem-selected");
+    } else {
+      target.classList.remove("menuitem-selected");
+    }
+  }
+
   onFilterFields() {
     this.#updateFieldsInfo(this.#inspectedFieldDetails);
   }
@@ -415,7 +474,9 @@ class AutofillInspector {
   }
 
   #scrollIntoView(fieldDetail) {
-    sendMessage("scroll-to", { fieldDetail });
+    if (this.#settings.scrollHover) {
+      sendMessage("scroll-to", { fieldDetail });
+    }
   }
 
   #addHighlightOverlay(type, fieldDetails) {

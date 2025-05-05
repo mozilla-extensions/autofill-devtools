@@ -2,21 +2,6 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-/* Import stylesheets for specific tooltip widgets */
-@import url(chrome://devtools/skin/accessibility-color-contrast.css);
-@import url(chrome://devtools/skin/badge.css);
-@import url(chrome://devtools/skin/inspector-shared.css);
-@import url(chrome://devtools/skin/variables.css);
-@import url(chrome://devtools/content/shared/widgets/cubic-bezier.css);
-@import url(chrome://devtools/content/shared/widgets/filter-widget.css);
-@import url(chrome://devtools/content/shared/widgets/linear-widget.css);
-@import url(chrome://devtools/content/shared/widgets/spectrum.css);
-/*
- * compatibility.css is primarily used by the Compatibility panel, so import it in a layer
- * to give it a lower importance than the rule here and mitigate styling mismatch.
- */
-@import url(chrome://devtools/skin/compatibility.css) layer(shared);
-
 :root {
   --theme-arrowpanel-border-radius: 3.5px;
 
@@ -548,7 +533,7 @@ strong {
       list-style-image: none;
       -moz-context-properties: fill;
       fill: currentColor;
-      background: url(chrome://devtools/skin/images/check.svg) no-repeat transparent;
+      /*background: url(chrome://devtools/skin/images/check.svg) no-repeat transparent;*/
       background-position: 7px center;
 
       &:dir(rtl),
@@ -679,7 +664,7 @@ strong {
 .event-tooltip-debugger-icon {
   -moz-context-properties: stroke;
   stroke: var(--theme-icon-color);
-  background-image: url("chrome://devtools/content/shared/components/reps/images/jump-definition.svg");
+  /*background-image: url("chrome://devtools/content/shared/components/reps/images/jump-definition.svg");*/
   background-repeat: no-repeat;
   background-position: center;
   background-color: transparent;
@@ -860,7 +845,7 @@ strong {
 }
 
 .invoke-confirm .close-confirm-dialog-button::before {
-  background-image: url("chrome://devtools/skin/images/close.svg");
+  /*background-image: url("chrome://devtools/skin/images/close.svg");*/
 }
 
 .invoke-confirm .confirm-label {
@@ -921,7 +906,7 @@ strong {
   height: 14px;
   fill: currentColor;
   -moz-context-properties: fill;
-  background-image: url(chrome://devtools/skin/images/help.svg);
+  /*background-image: url(chrome://devtools/skin/images/help.svg);*/
   background-size: contain;
   background-repeat: no-repeat;
   margin-inline-start: 4px;

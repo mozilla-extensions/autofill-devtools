@@ -395,11 +395,12 @@ class DownloadPageFeature {
     return html;
   }
 
-  static async freezePage(tabId, fieldDetails) {
+  static async freezePage(tabId, fieldDetails, includeIframe = true) {
     let frames = await browser.webNavigation.getAllFrames({ tabId });
     const mainFrame = frames.find((frame) => frame.parentFrameId == -1);
     const iframes = frames.filter(
       (frame) =>
+        includeIframe &&
         frame.parentFrameId == mainFrame.frameId &&
         !frame.url.startsWith("about:"),
     );
@@ -523,6 +524,7 @@ class GenerateTestFeature {
       let expectedField = {
         fieldName: fieldDetail.fieldName,
         reason: fieldDetail.reason,
+        "data-moz-autofill-inspect-id": fieldDetail.inspectId,
       };
       if (fieldDetail.part) {
         expectedField.part = fieldDetail.part;
@@ -666,16 +668,20 @@ async function handleMessage(request) {
     }
     // Download the page markup
     case "download-page": {
-      const { fieldDetails } = request;
+      const { fieldDetails, includeIframe } = request;
       const host = await getHostNameByTabId(tabId);
 
-      const pages = await DownloadPageFeature.freezePage(tabId, fieldDetails);
+      const pages = await DownloadPageFeature.freezePage(
+        tabId,
+        fieldDetails,
+        includeIframe,
+      );
       zipAndDownload(pages, host, "page");
       break;
     }
     // Generate a report with everything
     case "generate-report": {
-      const { panelDataUrl, fieldDetails } = request;
+      const { panelDataUrl, fieldDetails, includeIframe } = request;
       const host = await getHostNameByTabId(tabId);
 
       const screenshot = await DownloadPageFeature.screenshot(tabId);
@@ -683,7 +689,11 @@ async function handleMessage(request) {
         tabId,
         panelDataUrl,
       );
-      const pages = await DownloadPageFeature.freezePage(tabId, fieldDetails);
+      const pages = await DownloadPageFeature.freezePage(
+        tabId,
+        fieldDetails,
+        includeIframe,
+      );
       pages.forEach((page) => (page.filename = `page/${page.filename}`));
 
       const tests = await GenerateTestFeature.create(host, fieldDetails);

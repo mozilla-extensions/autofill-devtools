@@ -1,0 +1,120 @@
+/* This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
+
+:host([hidden]),
+[hidden] {
+  display: none !important;
+}
+
+:host {
+  position: relative;
+  --color-white: #ffffff;
+  --color-gray-80: #23222b;
+  --background-color-box: light-dark(var(--color-white), var(--color-gray-80));
+  --in-content-border-color: #d7d7db;
+
+  --in-content-box-border-color: rgba(0, 0, 0, 0.15);
+  /*--in-content-box-border-color: color-mix(in srgb, currentColor 41%, transparent);*/
+
+  --in-content-button-background: color-mix(in srgb, currentColor 7%, transparent);
+  --in-content-button-background-hover: color-mix(in srgb, currentColor 14%, transparent);
+  --in-content-button-background-active: color-mix(in srgb, currentColor 21%, transparent);
+  --box-shadow-color-lighter-layer-1: light-dark(rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0.2));
+  --box-shadow-color-lighter-layer-2: light-dark(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.4));
+  --box-shadow-level-3: 0 0.375px 1.5px var(--box-shadow-color-lighter-layer-1), 0 3px 12px var(--box-shadow-color-lighter-layer-2);
+  --box-shadow-popup: var(--box-shadow-level-3);
+}
+
+.menu-button {
+  background-repeat: no-repeat;
+  background-position: center;
+  -moz-context-properties: fill;
+  fill: currentColor;
+  width: 30px;
+  min-width: 30px;
+  margin: 0;
+}
+
+.menu {
+  position: absolute;
+  inset-inline-end: 0;
+  margin: 0;
+  padding: 5px 0;
+  background-color: var(--background-color-box);
+  border: 1px solid var(--in-content-box-border-color);
+  border-radius: 4px;
+  box-shadow: var(--box-shadow-popup);
+  min-width: max-content;
+  list-style-type: none;
+  display: flex;
+  flex-direction: column;
+  /* Show on top of .breach-alert which is also positioned */
+  z-index: 99;
+  font: menu;
+}
+
+.menuitem-button {
+  padding: 4px 8px;
+  /* 32px = 8px (padding) + 16px (icon) + 8px (padding) */
+  padding-inline-start: 32px;
+  background-repeat: no-repeat;
+  background-position: left 8px center;
+  background-size: 16px;
+  fill: currentColor;
+
+  /* Override common.inc.css properties */
+  margin: 0;
+  border: 0;
+  border-radius: 0;
+  text-align: start;
+  min-height: initial;
+  font: inherit;
+}
+
+.menuitem-button:dir(rtl) {
+  background-position-x: right 8px;
+}
+
+.menuitem-button:focus-visible {
+  outline-offset: var(--in-content-focus-outline-inset);
+}
+
+.menuitem-separator {
+  border-top-width: 1px;
+  margin-block: 5px;
+  width: 100%;
+}
+
+.menuitem-selected {
+  background-image: url(/content/icons/check.svg);
+}
+
+button.ghost-button {
+  background-color: transparent;
+}
+
+button.ghost-button:not(.semi-transparent):enabled:hover {
+  background-color: var(--in-content-button-background-hover);
+  color: var(--in-content-button-text-color-hover);
+}
+
+button.ghost-button:not(.semi-transparent):enabled:hover:active {
+  background-color: var(--in-content-button-background-active);
+  color: var(--in-content-button-text-color-active);
+}
+
+button.ghost-button.icon-button {
+  height: 16px;
+  width: 16px;
+  min-width: auto;
+  background-repeat: no-repeat;
+  background-size: 16px;
+  background-position: center;
+  fill: currentColor;
+}
+
+hr {
+  border-style: solid none none none;
+  border-color: var(--in-content-border-color);
+}

@@ -254,6 +254,10 @@ body,
   background-image: url("/content/icons/policies-active.svg");
 }
 
+.devtools-button.autofill-setting-button::before {
+  background-image: url("/content/icons/settings.svg");
+}
+
 /* From netmonitor/src/assets/styles/Toolbar.css */
 .devtools-toolbar .devtools-checkbox {
   position: relative;

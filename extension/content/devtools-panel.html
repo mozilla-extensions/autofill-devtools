@@ -7,6 +7,7 @@
     <link rel="stylesheet" type="text/css" href="style/autofill.css">
     <script src="autofill-inspector.js"></script>
     <script src="libs/html2canvas.min.js"></script>
+    <script type="module" src="menu-button.mjs"></script>
   </head>
   <body class="theme-body">
     <div class="autofill-panel">
@@ -42,6 +43,8 @@
           <input id="autofill-add-credit-card-button" type="checkbox" class="devtools-checkbox"/>
           Show Test Credit Card
         </label>
+        <span class="devtools-separator"></span>
+        <menu-button id="autofill-setting-button" title="Setting" class="devtools-button autofill-setting-button"></menu-button>
       </div>
       <div class="field-list-container">
         <div class="field-list-scroll">
@@ -60,21 +63,13 @@
       </div>
     </div>
 
-    <template id="menu-template">
-      <div class="tooltip-container tooltip-bottom" type="doorhanger">
-        <div class="tooltip-panel">
-          <div role="menu" class="checkbox-container menu-standard-padding" id="menu-item-list"></div>
-        </div>
-        <div class="tooltip-arrow"></div>
-      </div>
-    </template>
-
-    <template id="menu-item-template">
-      <li class="menuitem" role="presentation">
-        <button class="command menu-item" role="menuitem">
-          <span class="label"></span>
-        </button>
-      </li>
+    <template id="menu-button-template">
+      <link rel="stylesheet" type="text/css" href="style/menu-button.css">
+      <ul class="menu" role="menu" hidden>
+        <button id="menuitem-scroll-hover" role="menuitem" class="menuitem-button ghost-button">Scroll When Hover</button>
+        <hr role="separator" class="menuitem-separator">
+        <button id="menuitem-download-iframe" role="menuitem" class="menuitem-button ghost-button">Download Iframe</button>
+      </ul>
     </template>
   </body>
 </html>
