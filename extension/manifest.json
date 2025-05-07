@@ -20,14 +20,14 @@
     }
   },
 
-   "host_permissions": [
-     "*://*/*"
-   ],
+  "host_permissions": [
+    "*://*/*"
+  ],
 
   "web_accessible_resources": [
     {
       "resources": [
-        "libs/freeze-dry.es.js"
+        "libs/jszip.js"
       ],
       "matches": ["<all_urls>"]
     }

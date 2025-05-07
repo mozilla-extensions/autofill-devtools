@@ -9,6 +9,7 @@ export default [
       "web-ext-artifacts/",
       "extension/libs/",
       "extension/content/libs/",
+      "extension/content/content-script.js",
     ],
   },
   {

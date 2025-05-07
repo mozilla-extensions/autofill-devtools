@@ -14,14 +14,15 @@
     "url": "git+https://github.com/mozilla-extensions/autofill-devtools.git"
   },
   "scripts": {
-    "build": "npm-run-all clean build:*",
+    "build": "npm-run-all clean build:webpack build:extension build:finalize",
     "build:extension": "npx web-ext build -s ./extension/ --overwrite-dest",
     "build:finalize": "mv web-ext-artifacts/*.zip web-ext-artifacts/autofill-devtools.xpi",
     "clean": "npx rimraf web-ext-artifacts",
     "lint": "npm run lint:eslint",
     "lint:eslint": "eslint .",
     "lint:fix": "npm run lint:eslint -- --fix",
-    "format": "prettier \"{extension,tests}/**/*.{js,jsx,ts,tsx}\" --write"
+    "format": "prettier \"{extension,tests}/**/*.{js,jsx,ts,tsx}\" --write",
+    "build:webpack": "webpack"
   },
   "devDependencies": {
     "@microsoft/eslint-plugin-sdl": "1.0.1",
@@ -29,13 +30,16 @@
     "eslint-config-prettier": "10.0.1",
     "eslint-plugin-fetch-options": "0.0.5",
     "eslint-plugin-html": "8.1.2",
-    "eslint-plugin-json": "4.0.1",
     "eslint-plugin-jest": "28.11.0",
+    "eslint-plugin-json": "4.0.1",
     "eslint-plugin-mozilla": "4.0.0",
     "eslint-plugin-no-unsanitized": "4.1.2",
-    "prettier": "3.4.2",
+    "freeze-dry": "^1.0.0",
     "jest": "^29.7.0",
     "npm-run-all2": "7.0.2",
-    "rimraf": "6.0.1"
+    "prettier": "3.4.2",
+    "rimraf": "6.0.1",
+    "webpack": "^5.99.9",
+    "webpack-cli": "^6.0.1"
   }
 }
