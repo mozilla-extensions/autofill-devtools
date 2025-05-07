@@ -27,11 +27,7 @@
   "web_accessible_resources": [
     {
       "resources": [
-        "libs/freeze-dry.es.js",
-        "libs/jszip.js",
-        "data/test-addresses.json",
-        "data/test-credit-cards.json",
-        "data/gen-test.py"
+        "libs/freeze-dry.es.js"
       ],
       "matches": ["<all_urls>"]
     }
