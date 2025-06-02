@@ -479,6 +479,10 @@ class AutofillInspector {
   }
 
   #getDisplayedFields(fieldDetails) {
+    if (!fieldDetails) {
+      return [];
+    }
+
     const showInvisible = document.getElementById(
       "autofill-show-invisible-button",
     ).checked;
