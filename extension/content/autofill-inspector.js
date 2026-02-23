@@ -385,7 +385,7 @@ class AutofillInspector {
         tdFieldName.classList.remove("changed");
 
         const select = this.#createSelectAndOptions(
-          [...ADDRESS_TYPES, ...CREDIT_CARD_TYPES],
+          [...ADDRESS_TYPES, ...CREDIT_CARD_TYPES, "unknown"],
           tdFieldName.textContent,
         );
 

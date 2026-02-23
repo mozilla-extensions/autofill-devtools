@@ -337,7 +337,11 @@ class DownloadPageFeature {
           for (const [inspectId, fieldName] of aInspectedFields) {
             const selector = `[data-moz-autofill-inspect-id="${inspectId}"]`;
             const element = document.querySelector(selector);
-            element?.setAttribute("data-moz-autofill-type", fieldName);
+            if (fieldName && fieldName != "unknown") {
+              element?.setAttribute("data-moz-autofill-type", fieldName);
+            } else {
+              element?.removeAttribute("data-moz-autofill-type");
+            }
           }
         },
         args: [inspectedFields],
